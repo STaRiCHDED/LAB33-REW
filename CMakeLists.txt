@@ -6,21 +6,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(BUILD_COVERAGE "Build coverage" OFF)
 
 set(
-  HUNTER_CACHE_SERVERS
-  "https://github.com/bmstu-iu8-cpp-sem-3/hunter-cache"
-  CACHE STRING "Default cache server"
+        HUNTER_CACHE_SERVERS
+        "https://github.com/bmstu-iu8-cpp-sem-3/hunter-cache"
+        CACHE STRING "Default cache server"
 )
 
 include("tools/gate/cmake/HunterGate.cmake")
 
 HunterGate(
-  URL "https://github.com/cpp-pm/hunter/archive/v0.23.218.tar.gz"
-  SHA1 "9a3594a61227967fb92159339ba326701b287b19"
+        URL "https://github.com/cpp-pm/hunter/archive/v0.23.271.tar.gz"
+        SHA1 "2d6686024529b471e0cc3a4fc07d4d64b62a53ee"
 )
 
 
 # TODO: rename project and delete this comment
-project(template)
+project(lr3)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
 string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
@@ -28,35 +28,35 @@ string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 
-# TODO: change template word to project name and delete this comment
-add_library(template INTERFACE)
-
-add_executable(demo
-  ${CMAKE_CURRENT_SOURCE_DIR}/sources/main.cpp
-)
-
+# TODO: change lr3 word to project name and delete this comment
+add_library(lr3 STATIC
+        # enum your files and delete this comment
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/SHARED_PTR.cpp)
 add_executable(tests
-  # TODO: enum your files and delete this comment
-  ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.cpp
-)
+        # TODO: enum your files and delete this comment
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.cpp
+        )
 
-# TODO: change template word to project name and delete this comment
-target_include_directories(template 
-  INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-# TODO: change template word to project name and delete this comment
-target_link_libraries(tests GTest::main template)
-target_link_libraries(demo template)
+# TODO: change lr3 word to project name and delete this comment
+target_include_directories(lr3
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+        )
+target_include_directories(tests
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+        )
+# TODO: change lr3 word to project name and delete this comment
+target_link_libraries(tests GTest::gtest_main lr3)
 
 enable_testing()
-add_test(NAME unit_tests COMMAND tests) 
+add_test(NAME unit_tests COMMAND tests)
 
-if(BUILD_COVERAGE)
+if (BUILD_COVERAGE)
   set(ENABLE_COVERAGE ON CACHE BOOL "Enable coverage build." FORCE)
   list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
   find_package(codecov)
+  # TODO: change lr3 word to project name and delete this comment
+  add_coverage(lr3)
   add_coverage(tests)
   list(APPEND LCOV_REMOVE_PATTERNS "'${PROJECT_SOURCE_DIR}/tests/*'")
   coverage_evaluate()
-endif()
+endif ()

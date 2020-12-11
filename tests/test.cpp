@@ -160,3 +160,11 @@ TEST(SharedPtr, ThisMoveAssigment) {
   EXPECT_EQ(*selfMoveAssignment(ptr1, ptr1), 1111);
   EXPECT_EQ(selfMoveAssignment(ptr1, ptr1).use_count(), 1);
 }
+TEST(SharedPtr, IsMoveConstuctible) {
+  EXPECT_TRUE(std::is_move_constructible<SharedPtr<int>>());
+  EXPECT_TRUE(std::is_move_constructible<SharedPtr<std::string>>());
+}
+TEST(SharedPtr, IsMoveAssignable) {
+  EXPECT_TRUE(std::is_move_assignable<SharedPtr<int>>());
+  EXPECT_TRUE(std::is_move_assignable<SharedPtr<std::string>>());
+}

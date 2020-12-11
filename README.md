@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/STaRiCHDED/LAB33-REW.svg?branch=lab03)](https://travis-ci.com/STaRiCHDED/LAB33-REW)
+
 # Лабораторная работа №3
 
 ### Задание
